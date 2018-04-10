@@ -130,7 +130,6 @@ bitset<64> DES::char_to_bit(const char s[8]) {
 bitset<64> DES::change(bitset<64> temp) {
 	bitset<64> bits;
 	bitset<8> n;
-	int x;
 	for (int i = 0; i < 64; i = i + 8)
 	{
 		for (int j = 0; j < 8; j++)
@@ -140,7 +139,8 @@ bitset<64> DES::change(bitset<64> temp) {
 	}
 	return bits;
 }
-/*char * DES::bit_to_char(const bitset<64> test) {
+/*不同实现*/
+/*char  DES::bit_to_char(const bitset<64> test) {
 	int count = 0;
 	int temp;
 	char now[8];
