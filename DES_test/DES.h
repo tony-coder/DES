@@ -1,5 +1,6 @@
 #pragma once
 #include<bitset>
+#include<string>
 
 using namespace std;
 class DES
@@ -12,10 +13,15 @@ public:
 	bitset<64> change(bitset<64> temp);
 	bitset<64> DES_encryp(bitset<64> &plain);  //DES加密 
 	bitset<64> DES_decrypt(bitset<64> &cipher);//DES解密
-	void get_key(bitset<64> k);
+	void get_s(string str) { s = str; }        //获得明文
+	void get_key(string key_t) { k = key_t; }  //获得密钥
+	void show_encryp(void);
+	void show_decrypt(void);
 	DES();
 	~DES();
 private:
+	string s;  //明文
+	string k;  //密钥
 	bitset<64> key;   //64位密钥
 	bitset<48> subkey[16];//每一轮子密钥
 

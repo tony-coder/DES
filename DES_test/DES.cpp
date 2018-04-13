@@ -1,5 +1,6 @@
 #include "DES.h"
 #include<bitset>
+#include<fstream>
 
 using namespace std;
 
@@ -229,6 +230,33 @@ bitset<64> DES::DES_decrypt(bitset<64> & cipher) {
 	return plain;
 }
 
-void DES::get_key(bitset<64> k) {
-	key = k;
+
+void DES::show_encryp() {
+	bitset<64> plain = char_to_bit(s.c_str());
+	key = char_to_bit(k.c_str());
+	// 生成16个子密钥
+	generateKeys();
+	// 密文写入 a.txt
+	bitset<64> cipher = DES_encryp(plain);
+	fstream file1;
+	file1.open("D://a.txt", ios::binary | ios::out);
+	file1.write((char*)&cipher, sizeof(cipher));
+	file1.close();
+}
+
+void DES::show_decrypt() {
+	// 读文件 a.txt
+	bitset<64> temp;
+	fstream file2;
+	file2.open("D://a.txt", ios::binary | ios::in);
+	file2.read((char*)&temp, sizeof(temp));
+	file2.close();
+
+	// 解密，并写入文件 b.txt
+	bitset<64> temp_plain = DES_decrypt(temp);
+	bitset<64> temp_1 = change(temp_plain);
+
+	file2.open("D://b.txt", ios::binary | ios::out);
+	file2.write((char*)&temp_1, sizeof(temp_1));
+	file2.close();
 }
